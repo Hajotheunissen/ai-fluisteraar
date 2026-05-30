@@ -586,22 +586,15 @@ h1.title {
 }
 .doc-link svg { width: 16px; height: 16px; flex: none; }
 
-/* --- Print --------------------------------------------------------- */
 /* --- Print / Save as PDF ------------------------------------------ */
 @page {
-  margin: 20mm 16mm 26mm;
-  @bottom-center {
-    content: counter(page);
-    font-family: "Space Grotesk", system-ui, -apple-system, sans-serif;
-    font-size: 9pt;
-    color: #888e99;
-  }
+  margin: 24mm 20mm 28mm;
 }
 @media print {
   /* Always print on white with dark ink, whatever the on-screen theme */
-  :root, :root[data-theme="grijs"], :root[data-theme="avond"] {
+  :root, :root[data-theme="grijs"], :root[data-theme="avond"], :root[data-theme="papier"] {
     --bg: #ffffff;
-    --bg-soft: #ffffff;
+    --bg-soft: #f9f9f9;
     --bg-elev: #ffffff;
     --ink: #15171c;
     --ink-muted: #3f4651;
@@ -613,8 +606,9 @@ h1.title {
 
   html, body {
     background: #ffffff !important;
-    width: auto !important;
+    width: 100% !important;
     margin: 0 !important;
+    padding: 0 !important;
   }
 
   /* Hide all interactive chrome */
@@ -627,11 +621,19 @@ h1.title {
     padding: 0 !important;
     margin: 0 !important;
     max-width: none !important;
+    width: 100% !important;
   }
   .article {
+    display: block !important;
     width: 100% !important;
     max-width: 640px !important;
     margin: 0 auto !important;
+    padding: 0 !important;
+  }
+
+  /* Firefox: flex containers block page-break support — convert to block */
+  .conversation {
+    display: block !important;
   }
 
   /* Keep text from running off the page */
@@ -640,21 +642,22 @@ h1.title {
     word-break: normal;
   }
 
-  /* Sensible page breaks: don't strand a speaker label at the foot of a page */
+  /* Page breaks — use both modern and legacy (Firefox) properties */
   .turn { padding: 18px 0; border-top: 1px solid var(--rule-soft); }
-  .turn-label { break-after: avoid; }
-  .turn-body h3 { break-after: avoid; }
+  .turn-label { break-after: avoid; page-break-after: avoid; }
+  .turn-body h3 { break-after: avoid; page-break-after: avoid; }
   .turn-body li, .turn-body p {
     break-inside: avoid;
+    page-break-inside: avoid;
     orphans: 3;
     widows: 3;
   }
-  .title-block { margin-bottom: 36px; break-after: avoid; }
+  .title-block { margin-bottom: 36px; break-after: avoid; page-break-after: avoid; }
 
   a { color: var(--ink); text-decoration: none; }
   .endcap { margin-top: 32px; }
   .zijweg-link { display: none; }
-  .zijweg-start { break-inside: avoid; }
+  .zijweg-start { break-inside: avoid; page-break-inside: avoid; }
   .turn-aside { box-shadow: none; border-left: 2px solid var(--rule); margin-left: 0; margin-right: 0; padding-left: 16px; padding-right: 0; }
 }
 
