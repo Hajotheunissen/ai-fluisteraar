@@ -589,7 +589,13 @@ h1.title {
 /* --- Print --------------------------------------------------------- */
 /* --- Print / Save as PDF ------------------------------------------ */
 @page {
-  margin: 18mm 16mm 20mm;
+  margin: 20mm 16mm 26mm;
+  @bottom-center {
+    content: counter(page);
+    font-family: "Space Grotesk", system-ui, -apple-system, sans-serif;
+    font-size: 9pt;
+    color: #888e99;
+  }
 }
 @media print {
   /* Always print on white with dark ink, whatever the on-screen theme */
@@ -638,7 +644,11 @@ h1.title {
   .turn { padding: 18px 0; border-top: 1px solid var(--rule-soft); }
   .turn-label { break-after: avoid; }
   .turn-body h3 { break-after: avoid; }
-  .turn-body li, .turn-body p { break-inside: avoid; }
+  .turn-body li, .turn-body p {
+    break-inside: avoid;
+    orphans: 3;
+    widows: 3;
+  }
   .title-block { margin-bottom: 36px; break-after: avoid; }
 
   a { color: var(--ink); text-decoration: none; }
