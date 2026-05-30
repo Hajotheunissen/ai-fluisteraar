@@ -588,7 +588,7 @@ h1.title {
 
 /* --- Print / Save as PDF ------------------------------------------ */
 @page {
-  margin: 28mm 20mm 32mm;
+  margin: 24mm 20mm 28mm;
 }
 @media print {
   /* Always print on white with dark ink, whatever the on-screen theme */
@@ -615,12 +615,6 @@ h1.title {
   .topbar, .progress-bar, .topbar-actions,
   .twk-panel, [data-omelette-chrome], .sidebar { display: none !important; }
 
-  /* Prevent any multi-column layout (Firefox safety net) */
-  body, .layout, .article, .conversation, .turn {
-    column-count: 1 !important;
-    columns: 1 !important;
-  }
-
   /* Reset the layout to a single flowing column */
   .layout {
     display: block !important;
@@ -632,12 +626,12 @@ h1.title {
   .article {
     display: block !important;
     width: 100% !important;
-    max-width: 155mm !important; /* mm ipv px: DPI-onafhankelijk, veilig op A4 */
+    max-width: 640px !important;
     margin: 0 auto !important;
     padding: 0 !important;
   }
 
-  /* Firefox: flex containers blokkeren page-break — omzetten naar block */
+  /* Firefox: flex containers block page-break support — convert to block */
   .conversation {
     display: block !important;
   }
@@ -648,7 +642,7 @@ h1.title {
     word-break: normal;
   }
 
-  /* Page breaks — gebruik zowel moderne als legacy (Firefox) properties */
+  /* Page breaks — use both modern and legacy (Firefox) properties */
   .turn { padding: 18px 0; border-top: 1px solid var(--rule-soft); }
   .turn-label { break-after: avoid; page-break-after: avoid; }
   .turn-body h3 { break-after: avoid; page-break-after: avoid; }
