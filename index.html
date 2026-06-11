@@ -83,7 +83,13 @@ a{color:inherit;}
 .sec-lede{font-family:var(--font-display); font-style:italic; font-size:1.3em; color:var(--muted); margin:0; max-width:34ch;}
 
 .book{display:grid; grid-template-columns:185px 1fr; gap:44px; align-items:stretch; margin-top:40px;}
-@media(max-width:760px){ .book{grid-template-columns:160px 1fr; gap:28px; align-items:start;} .cover{aspect-ratio:2/3;} }
+@media(max-width:760px){ .book{grid-template-columns:150px 1fr; gap:24px; align-items:start;} }
+@media(max-width:560px){
+  .book{grid-template-columns:1fr; gap:26px; align-items:center; justify-items:center; text-align:center;}
+  .cover{width:170px; max-width:62%; align-self:center;}
+  .book-body{max-width:38ch;}
+  .book-body .btn{margin-left:auto; margin-right:auto;}
+}
 .cover{aspect-ratio:2/3; align-self:stretch; background:#fbf7ef;
   border:1px solid #ddd3c0; display:flex; flex-direction:column;
   align-items:center; justify-content:center; padding:5px; overflow:hidden;
