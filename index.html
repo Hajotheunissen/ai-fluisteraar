@@ -82,9 +82,9 @@ a{color:inherit;}
   font-size:clamp(30px,4vw,46px); line-height:1.04; letter-spacing:-.005em; margin:0 0 12px; text-wrap:balance; color:var(--ink);}
 .sec-lede{font-family:var(--font-display); font-style:italic; font-size:1.3em; color:var(--muted); margin:0; max-width:34ch;}
 
-.book{display:grid; grid-template-columns:185px 1fr; gap:44px; align-items:start; margin-top:40px;}
-@media(max-width:760px){ .book{grid-template-columns:160px 1fr; gap:28px;} }
-.cover{aspect-ratio:2/3; background:#fbf7ef;
+.book{display:grid; grid-template-columns:185px 1fr; gap:44px; align-items:stretch; margin-top:40px;}
+@media(max-width:760px){ .book{grid-template-columns:160px 1fr; gap:28px; align-items:start;} .cover{aspect-ratio:2/3;} }
+.cover{aspect-ratio:2/3; align-self:stretch; background:#fbf7ef;
   border:1px solid #ddd3c0; display:flex; flex-direction:column;
   align-items:center; justify-content:center; padding:5px; overflow:hidden;
   box-shadow:0 22px 44px -30px rgba(70,50,20,.28), 0 0 0 1px rgba(169,118,46,.04);}
@@ -100,7 +100,7 @@ a{color:inherit;}
 .cover .c-foot{font-family:var(--font-body); font-size:11.5px; color:var(--faint); line-height:1.4;}
 .book-body p{margin:0 0 1.1em; text-wrap:pretty; color:var(--ink);}
 .book-body p:first-child{font-size:1.06em;}
-.book-body .avail{font-family:var(--font-ui); font-size:13.5px; color:var(--muted); margin-top:1.6em;}
+.book-body .avail{font-family:var(--font-ui); font-size:13.5px; color:var(--muted); margin-top:1.6em; margin-bottom:0;}
 
 .btn{display:inline-flex; align-items:center; gap:11px; font-family:var(--font-ui);
   font-size:13px; letter-spacing:.06em; text-transform:uppercase; text-decoration:none;
@@ -295,7 +295,10 @@ a{color:inherit;}
       if(s) im.setAttribute("src", s);
     });
   }
-  var saved = localStorage.getItem(KEY) || "nl";
+  var q = (new URLSearchParams(location.search).get("lang") || location.hash.replace(/^#/,"")).toLowerCase();
+  var saved;
+  if(q==="en"||q==="nl"){ saved=q; try{localStorage.setItem(KEY,q);}catch(e){} }
+  else { saved = localStorage.getItem(KEY) || "nl"; }
   apply(saved);
   document.querySelectorAll(".lang button").forEach(function(b){
     b.addEventListener("click", function(){
