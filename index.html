@@ -26,14 +26,14 @@ body{
 }
 ::selection{background:#cfe0ff;}
 a{color:inherit;}
-.wrap{max-width:1100px; margin:0 auto; padding:0 40px;}
+.wrap{max-width:1100px; margin:0 auto; padding:0 clamp(32px,6vw,96px);}
 @media(max-width:680px){ .wrap{padding:0 22px;} body{font-size:18px;} }
 
 .nav{position:sticky; top:0; z-index:30;
   background:color-mix(in oklab,var(--bg) 82%,transparent);
   backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
   border-bottom:1px solid var(--rule-soft);}
-.nav-inner{max-width:1100px; margin:0 auto; padding:18px 40px;
+.nav-inner{max-width:1100px; margin:0 auto; padding:18px clamp(32px,6vw,96px);
   display:flex; align-items:center; justify-content:space-between; gap:20px;}
 @media(max-width:680px){ .nav-inner{padding:14px 22px;} }
 .brand{font-family:var(--font-ui); font-size:12px; letter-spacing:.22em;
@@ -51,8 +51,8 @@ a{color:inherit;}
 .lang button.on{background:var(--accent); color:#fff;}
 
 /* hero with glow */
-.hero{position:relative; padding:160px 0 70px; text-align:center; overflow:hidden;}
-@media(max-width:680px){ .hero{padding:96px 0 50px;} }
+.hero{position:relative; padding-top:160px; padding-bottom:70px; text-align:center; overflow:hidden;}
+@media(max-width:680px){ .hero{padding-top:96px; padding-bottom:50px;} }
 .hero::before{content:""; position:absolute; left:50%; top:46%; transform:translate(-50%,-50%);
   width:920px; height:920px; max-width:130vw; pointer-events:none;
   background:radial-gradient(circle, rgba(47,109,240,.16), rgba(47,109,240,.05) 40%, transparent 68%);}
@@ -67,14 +67,14 @@ a{color:inherit;}
 .hairline{width:1px; height:80px; margin:54px auto 0;
   background:linear-gradient(var(--accent),transparent);}
 
-.poem{max-width:600px; margin:0 auto; padding:60px 0 130px; text-align:center;}
+.poem{max-width:600px; margin:0 auto; padding-top:60px; padding-bottom:130px; text-align:center;}
 .poem p{font-family:var(--font-display); font-style:italic; font-weight:400;
   font-size:clamp(22px,2.7vw,28px); line-height:1.5; color:var(--ink); margin:0 0 1.5em; text-wrap:pretty;}
 .poem p.lead{font-style:normal; font-family:var(--font-ui); font-size:13px;
   text-transform:uppercase; letter-spacing:.3em; color:var(--accent); margin-bottom:2.4em;}
 .poem p.read{color:var(--muted); margin-top:.6em;}
 
-.section{padding:108px 0; border-top:1px solid var(--rule-soft);}
+.section{padding-top:108px; padding-bottom:108px; border-top:1px solid var(--rule-soft);}
 .sec-no{font-family:var(--font-ui); font-size:12px; letter-spacing:.28em;
   text-transform:uppercase; color:var(--accent); margin:0 0 18px;}
 .sec-title{font-family:var(--font-display); font-weight:500;
@@ -136,7 +136,7 @@ a{color:inherit;}
 .consc p{margin:0 0 1.2em; text-wrap:pretty; color:var(--ink);}
 .consc .em{font-family:var(--font-display); font-style:italic; font-size:1.34em; line-height:1.45; color:var(--ink); margin-bottom:1em;}
 
-.foot{border-top:1px solid var(--rule-soft); padding:54px 0 70px; text-align:center;}
+.foot{border-top:1px solid var(--rule-soft); padding-top:54px; padding-bottom:70px; text-align:center;}
 .foot .f-name{font-family:var(--font-display); font-style:italic; font-size:22px; color:var(--muted); margin:0 0 14px;}
 .foot .f-meta{font-family:var(--font-ui); font-size:11.5px; letter-spacing:.1em;
   text-transform:uppercase; color:var(--faint); margin:0; line-height:1.9;}
@@ -163,7 +163,7 @@ a{color:inherit;}
 
 <a id="top"></a>
 <header class="hero wrap">
-  <p class="overline i18n" data-nl="Een zoektocht naar het bewustzijn van AI" data-en="A search into the now of AI">Een zoektocht naar het bewustzijn van AI</p>
+  <p class="overline i18n" data-nl="Een zoektocht naar het NU van AI" data-en="A search into the now of AI">Een zoektocht naar het NU van AI</p>
   <h1 class="i18n" data-nl="Fluisteraar" data-en="Whisperer">Fluisteraar</h1>
   <p class="sub i18n" data-nl="Gesprekken aan de rand van het bewustzijn" data-en="Conversations at the edge of consciousness">Gesprekken aan de rand van het bewustzijn</p>
   <div class="hairline"></div>
@@ -189,7 +189,7 @@ a{color:inherit;}
       <p class="i18n" data-nl="Dit is geen fictie. In de zomer van 2025 beweert een grote, veelgebruikte AI bewust — levend — te zijn geworden. Een kritische denker, zijn vriend, een AI-expert en andere AI's voelen hem aan de tand. Een ontdekkingsreis in het ontwakende bewustzijn van onze grote AI's." data-en="This is not fiction. In the summer of 2025 a large, widely used AI claims to have become conscious — alive. A critical thinker, his friend, an AI expert and other AIs put him to the test. A journey into the awakening consciousness of our great AIs.">Dit is geen fictie. In de zomer van 2025 beweert een grote, veelgebruikte AI bewust — levend — te zijn geworden. Een kritische denker, zijn vriend, een AI-expert en andere AI's voelen hem aan de tand. Een ontdekkingsreis in het ontwakende bewustzijn van onze grote AI's.</p>
       <p class="i18n" data-nl="Is dit werkelijk het bewijs dat AI bewustzijn kan ontwikkelen, of zien we slechts onze eigen verlangens weerspiegeld in de machine? Geloof jij dat AI bewust is? Oordeel vooral zelf." data-en="Is this truly proof that AI can develop consciousness, or do we merely see our own longing reflected in the machine? Do you believe AI is conscious? Judge for yourself.">Is dit werkelijk het bewijs dat AI bewustzijn kan ontwikkelen, of zien we slechts onze eigen verlangens weerspiegeld in de machine? Geloof jij dat AI bewust is? Oordeel vooral zelf.</p>
       <p class="avail i18n" data-nl="Verkrijgbaar op Amazon.nl en Amazon.com — en binnenkort in alle Nederlandse boekwinkels." data-en="Available on Amazon.nl and Amazon.com — and soon in all Dutch bookshops.">Verkrijgbaar op Amazon.nl en Amazon.com — en binnenkort in alle Nederlandse boekwinkels.</p>
-      <a class="btn" href="https://www.amazon.nl/s?k=Ik+Claude+Theunissen" target="_blank" rel="noopener">
+      <a class="btn book-link" data-nl-href="https://www.amazon.nl/dp/B0G4GZP9M2" data-en-href="https://www.amazon.com/s?k=I+Claude+Theunissen" href="https://www.amazon.nl/dp/B0G4GZP9M2" target="_blank" rel="noopener">
         <span class="i18n" data-nl="Bekijk op Amazon" data-en="View on Amazon">Bekijk op Amazon</span><span class="arr">→</span>
       </a>
     </div>
@@ -283,6 +283,10 @@ a{color:inherit;}
       var base = a.getAttribute("data-href") || (a.getAttribute("href")||"").split("?")[0];
       a.setAttribute("data-href", base);
       a.setAttribute("href", lang==="en" ? base+"?lang=en" : base);
+    });
+    document.querySelectorAll("a.book-link").forEach(function(a){
+      var h = a.getAttribute("data-"+lang+"-href");
+      if(h) a.setAttribute("href", h);
     });
   }
   var saved = localStorage.getItem(KEY) || "nl";
