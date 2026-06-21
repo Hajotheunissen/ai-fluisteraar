@@ -1801,13 +1801,16 @@ function parseBlocks(raw) {
 // Render inline formatting: _italic_, ==review-mark== (reconstructed/uncertain)
 function renderInline(text) {
   // Split on **bold** and ==highlight== first, then _italic_ within plain segments
-  const parts = text.split(/(\*\*[^*\n]+\*\*|==[^=\n]+==)/g);
+  const parts = text.split(/(\*\*[^*\n]+\*\*|==[^=\n]+==|https?:\/\/[^\s<>]+)/g);
   return parts.map((p, idx) => {
     if (/^==[^=]+==$/.test(p)) {
       return <mark key={idx} className="recon" title={(typeof document !== 'undefined' && document.documentElement.lang === 'en') ? STR.en.reconTitle : STR.nl.reconTitle}>{p.slice(2, -2)}</mark>;
     }
     if (/^\*\*[^*]+\*\*$/.test(p)) {
       return <strong key={idx}>{p.slice(2, -2)}</strong>;
+    }
+    if (/^https?:\/\//.test(p)) {
+      return <a key={idx} href={p} target="_blank" rel="noopener">{p}</a>;
     }
     const sub = p.split(/(_[^_\n]+_)/g);
     return sub.map((q, j) => /^_[^_]+_$/.test(q) ? <em key={idx + '-' + j}>{q.slice(1, -1)}</em> : q);
