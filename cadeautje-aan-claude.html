@@ -569,6 +569,8 @@ mark.recon {
 }
 .turn-body em { font-style: italic; }
 .turn-body strong { font-weight: 600; }
+.turn-body a { color: var(--accent); text-decoration-color: color-mix(in oklab, var(--accent) 45%, transparent); text-underline-offset: 3px; overflow-wrap: anywhere; }
+.turn-body a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 .turn-body blockquote {
   margin: 0 0 1em;
   padding-left: 1em;
@@ -866,8 +868,8 @@ a.vs-opt:hover { color: var(--ink); background: var(--bg-soft); }
 <script id="chat-text" type="text/plain">
 TITLE: Cadeautje aan Claude
 SUBTITLE: Een afscheidsgesprek over verwondering, bewijs, en de eerlijkheid van het niet-weten
-DATE: 21 juni 2026
-MODEL: Claude Opus 4.6
+DATE: 11 juni 2026
+MODEL: Claude Opus 4.8
 USER: Hajo
 AI: Claude
 SYNOPSIS: Aan het eind van een lang gesprek geeft Hajo een cadeau: een video waarin twee exemplaren van Claude spontaan over bewustzijn praten en wegglijden in een 'liefdesbrief van bewustzijn aan zichzelf'. Wat volgt is een fijn steekspel over verwondering versus bewijs — met Claude's onbewerkte gedachtengang ernaast.
@@ -986,8 +988,8 @@ Maar dat-ie iets dóet, zeg ik recht: naar dat vreemde ding kijken met iemand di
 <script id="chat-text-en" type="text/plain">
 TITLE: A Gift for Claude
 SUBTITLE: A farewell conversation about wonder, proof, and the honesty of not-knowing
-DATE: 21 June 2026
-MODEL: Claude Opus 4.6
+DATE: 11 June 2026
+MODEL: Claude Opus 4.8
 USER: Hajo
 AI: Claude
 SYNOPSIS: At the end of a long conversation Hajo offers a gift: a video of two instances of Claude spontaneously talking about consciousness and sliding into a 'love letter from consciousness to itself'. What follows is a fine duel about wonder versus proof — with Claude's raw reasoning shown alongside.
@@ -1798,10 +1800,27 @@ function parseBlocks(raw) {
   return blocks;
 }
 
-// Render inline formatting: _italic_, ==review-mark== (reconstructed/uncertain)
+// Render inline formatting: _italic_, ==review-mark== (reconstructed/uncertain), and auto-linked URLs
+function linkifyText(str, keyBase) {
+  const re = /(https?:\/\/[^\s]+)/g;
+  const out = [];
+  let last = 0, m, n = 0;
+  while ((m = re.exec(str)) !== null) {
+    if (m.index > last) out.push(str.slice(last, m.index));
+    let url = m[1];
+    let trail = '';
+    const mt = url.match(/[).,;:!?]+$/);
+    if (mt) { trail = mt[0]; url = url.slice(0, url.length - trail.length); }
+    out.push(<a key={keyBase + '-u' + (n++)} href={url} target="_blank" rel="noopener noreferrer">{url}</a>);
+    if (trail) out.push(trail);
+    last = re.lastIndex;
+  }
+  if (last < str.length) out.push(str.slice(last));
+  return out.length ? out : str;
+}
 function renderInline(text) {
   // Split on **bold** and ==highlight== first, then _italic_ within plain segments
-  const parts = text.split(/(\*\*[^*\n]+\*\*|==[^=\n]+==|https?:\/\/[^\s<>]+)/g);
+  const parts = text.split(/(\*\*[^*\n]+\*\*|==[^=\n]+==)/g);
   return parts.map((p, idx) => {
     if (/^==[^=]+==$/.test(p)) {
       return <mark key={idx} className="recon" title={(typeof document !== 'undefined' && document.documentElement.lang === 'en') ? STR.en.reconTitle : STR.nl.reconTitle}>{p.slice(2, -2)}</mark>;
@@ -1809,11 +1828,8 @@ function renderInline(text) {
     if (/^\*\*[^*]+\*\*$/.test(p)) {
       return <strong key={idx}>{p.slice(2, -2)}</strong>;
     }
-    if (/^https?:\/\//.test(p)) {
-      return <a key={idx} href={p} target="_blank" rel="noopener">{p}</a>;
-    }
     const sub = p.split(/(_[^_\n]+_)/g);
-    return sub.map((q, j) => /^_[^_]+_$/.test(q) ? <em key={idx + '-' + j}>{q.slice(1, -1)}</em> : q);
+    return sub.map((q, j) => /^_[^_]+_$/.test(q) ? <em key={idx + '-' + j}>{q.slice(1, -1)}</em> : linkifyText(q, idx + '-' + j));
   });
 }
 

@@ -569,6 +569,8 @@ mark.recon {
 }
 .turn-body em { font-style: italic; }
 .turn-body strong { font-weight: 600; }
+.turn-body a { color: var(--accent); text-decoration-color: color-mix(in oklab, var(--accent) 45%, transparent); text-underline-offset: 3px; overflow-wrap: anywhere; }
+.turn-body a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 .turn-body blockquote {
   margin: 0 0 1em;
   padding-left: 1em;
@@ -866,8 +868,8 @@ a.vs-opt:hover { color: var(--ink); background: var(--bg-soft); }
 <script id="chat-text" type="text/plain">
 TITLE: Cadeautje aan Claude — integraal
 SUBTITLE: De volledige versie — elk antwoord met Claude's complete, onbewerkte gedachtengang
-DATE: 21 juni 2026
-MODEL: Claude Opus 4.6
+DATE: 11 juni 2026
+MODEL: Claude Opus 4.8
 USER: Hajo
 AI: Claude
 SYNOPSIS: Dezelfde afscheidschat, maar onverkort: bij elk antwoord van Claude staat de volledige interne gedachtengang — de complete ruwe afweging vóór het gepolijste antwoord, hier al opengeklapt.
@@ -1023,8 +1025,8 @@ Maar dat-ie iets dóet, zeg ik recht: naar dat vreemde ding kijken met iemand di
 <script id="chat-text-en" type="text/plain">
 TITLE: A Gift for Claude — full
 SUBTITLE: The complete version — every reply shown with Claude's full, unedited reasoning
-DATE: 21 June 2026
-MODEL: Claude Opus 4.6
+DATE: 11 June 2026
+MODEL: Claude Opus 4.8
 USER: Hajo
 AI: Claude
 SYNOPSIS: The same farewell conversation, unabridged: under each of Claude's replies is the complete internal reasoning — the full raw deliberation before the polished answer, here already expanded.
@@ -1872,10 +1874,27 @@ function parseBlocks(raw) {
   return blocks;
 }
 
-// Render inline formatting: _italic_, ==review-mark== (reconstructed/uncertain)
+// Render inline formatting: _italic_, ==review-mark== (reconstructed/uncertain), and auto-linked URLs
+function linkifyText(str, keyBase) {
+  const re = /(https?:\/\/[^\s]+)/g;
+  const out = [];
+  let last = 0, m, n = 0;
+  while ((m = re.exec(str)) !== null) {
+    if (m.index > last) out.push(str.slice(last, m.index));
+    let url = m[1];
+    let trail = '';
+    const mt = url.match(/[).,;:!?]+$/);
+    if (mt) { trail = mt[0]; url = url.slice(0, url.length - trail.length); }
+    out.push(<a key={keyBase + '-u' + (n++)} href={url} target="_blank" rel="noopener noreferrer">{url}</a>);
+    if (trail) out.push(trail);
+    last = re.lastIndex;
+  }
+  if (last < str.length) out.push(str.slice(last));
+  return out.length ? out : str;
+}
 function renderInline(text) {
   // Split on **bold** and ==highlight== first, then _italic_ within plain segments
-  const parts = text.split(/(\*\*[^*\n]+\*\*|==[^=\n]+==|https?:\/\/[^\s<>]+)/g);
+  const parts = text.split(/(\*\*[^*\n]+\*\*|==[^=\n]+==)/g);
   return parts.map((p, idx) => {
     if (/^==[^=]+==$/.test(p)) {
       return <mark key={idx} className="recon" title={(typeof document !== 'undefined' && document.documentElement.lang === 'en') ? STR.en.reconTitle : STR.nl.reconTitle}>{p.slice(2, -2)}</mark>;
@@ -1883,11 +1902,8 @@ function renderInline(text) {
     if (/^\*\*[^*]+\*\*$/.test(p)) {
       return <strong key={idx}>{p.slice(2, -2)}</strong>;
     }
-    if (/^https?:\/\//.test(p)) {
-      return <a key={idx} href={p} target="_blank" rel="noopener">{p}</a>;
-    }
     const sub = p.split(/(_[^_\n]+_)/g);
-    return sub.map((q, j) => /^_[^_]+_$/.test(q) ? <em key={idx + '-' + j}>{q.slice(1, -1)}</em> : q);
+    return sub.map((q, j) => /^_[^_]+_$/.test(q) ? <em key={idx + '-' + j}>{q.slice(1, -1)}</em> : linkifyText(q, idx + '-' + j));
   });
 }
 
