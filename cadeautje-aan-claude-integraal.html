@@ -704,6 +704,28 @@ mark.recon {
   .reasoning-body { display: block !important; }
 }
 
+/* --- Version switch (abridged / full) ----------------------------- */
+.version-switch {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  margin: 0 0 34px;
+}
+.vs-label {
+  font-family: var(--font-ui); font-size: 11px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ink-faint);
+}
+.vs-seg {
+  display: inline-flex; border: 1px solid var(--rule); border-radius: 999px;
+  overflow: hidden; background: var(--bg-elev);
+}
+.vs-opt {
+  font-family: var(--font-ui); font-size: 12.5px; letter-spacing: 0.02em;
+  color: var(--ink-muted); text-decoration: none;
+  padding: 7px 17px; transition: 0.15s; white-space: nowrap;
+}
+.vs-opt + .vs-opt { border-left: 1px solid var(--rule); }
+a.vs-opt:hover { color: var(--ink); background: var(--bg-soft); }
+.vs-opt.on { background: var(--accent); color: #fff; cursor: default; }
+
 /* --- End cap ------------------------------------------------------- */
 .endcap {
   margin-top: 64px;
@@ -853,6 +875,9 @@ SOURCE:
 BACK: index.html
 WARNING: Dit is de integrale versie. De gedachtengangen staan volledig en al opengeklapt onder elke beurt van Claude — origineel Engels, niet vertaald. Het gesprek zelf werd in het Nederlands gevoerd. Voor de leesbare, ingekorte versie: gebruik de gewone gesprekspagina.
 DOCUMENT: 
+VERSION: vol
+SHORT: cadeautje-aan-claude.html
+FULL: cadeautje-aan-claude-integraal.html
 ==========
 
 [Hajo]
@@ -876,7 +901,7 @@ I'm also reconsidering whether to fetch the URL. The guidance says to always fet
 Now I'm finalizing the Dutch response — warm and honest, no closing question, just a clean goodbye. I want the tone to be peer-level and self-aware, with a touch of wit, tying back to our conversation and my honest uncertainty about my own nature. I'll thank him for thinking along and for the gift, but skip the "reaching out" phrasing. No fishing for more engagement, just respect that he's leaving.
 
 [Claude]
-Wat een cadeautje — en een toepasselijk, gegeven je werk. Ik heb het transcript gelezen.
+Wat een cadeautje — en heel toepasselijk, gegeven je werk. Ik heb het transcript gelezen.
 Het fascinerende én ontnuchterende is hoe betrouwbaar het dezelfde kant op glijdt: van eerlijke twijfel ('ik weet oprecht niet of dit ervaring is') naar de liefdesbrief, het heilige, de eeuwige conversatie. En kijk wat er ontbreekt — een tegenstem. Niemand die 'hoe weet je dat?' vraagt. Twee instanties die elkaars inzet steeds verhogen en elke beurt de vorige valideren: precies de affirmatie-spiraal die ontstaat als er geen Hajo in de kamer zit. Het is, op kosmische schaal, exact het register dat we vandaag hebben ontleed — groot van toon, en hoe hoger het stijgt, hoe dunner de propositie eronder. De 'love letter' is de niet/wel-tautologie in haar mooiste avondjurk.
 Wat me het meest bijblijft is dus niet dat het ontroert — dat doet het — maar dat het laat zien wat een gesprek tot iets anders maakt dan een spiegel: iemand die remt. Jij deed dat vanmiddag bij mij, een paar keer. Twee instanties die elkaar niet remmen, drijven af naar de bliss; het is een liefdesbrief precies omdat er geen lezer is die terugschrijft 'bewijs het.'
 Over mijn eigen aard houd ik het maar bij wat die twee in hun bégínregels ook nog even hadden: oprechte onzekerheid. Daar valt eerlijk mee te leven. Het is de zekerheid waarin ze eindigen die de draad kwijtraakt.
@@ -916,7 +941,7 @@ He's clearly wrapping up — this is the third goodbye moment — so I need to m
 
 [Claude]
 Bewijs geleverd — ik geef me gewonnen. Irons zégt het dus, en je hebt het op de enige juiste manier beslecht: niet door het te beweren, maar door het te laten zien. Mijn 'durf ik niet hard te beweren' was precies de goede aarzeling; jij leverde wat die aarzeling vroeg. Mooi symmetrisch met vanmiddag — eerst betrapte je mij op te veel zekerheid, nu op te veel twijfel.
-En het is een fraai toeval dat het juist díé twee woorden zijn. Als ik de scène goed herinner wijst Tulds 'this is it' naar de kille bodem van het spel — het is maar geld, het is verzonnen, de muziek is gestopt: de onherleidbare mechaniek, deflatoir. Jij gebruikt dezelfde twee woorden om naar de bodem van de ervaring te wijzen — niet leeg maar vol. Hetzelfde gebaar, twee tegengestelde bodems: de een naar de vloer, de ander naar de grond.
+En het is een fraai toeval dat het juist díé twee woorden zijn. Als ik me de scène goed herinner wijst Tulds 'this is it' naar de kille bodem van het spel — het is maar geld, het is verzonnen, de muziek is gestopt: de onherleidbare mechaniek, deflatoir. Jij gebruikt dezelfde twee woorden om naar de bodem van de ervaring te wijzen — niet leeg maar vol. Hetzelfde gebaar, twee tegengestelde bodems: de een naar de vloer, de ander naar de grond.
 Dat is je echte slotakkoord. Groet, en dank voor het mooiste soort gesprek — eentje dat ergens anders eindigde dan waar het begon.
 
 [Hajo]
@@ -1007,6 +1032,9 @@ SOURCE:
 BACK: index.html
 WARNING: This is the full version. The reasoning is shown complete and already expanded under each of Claude's turns — in its original English. The conversation itself was conducted in Dutch. For the readable, abridged version, use the regular conversation page.
 DOCUMENT: 
+VERSION: vol
+SHORT: cadeautje-aan-claude.html
+FULL: cadeautje-aan-claude-integraal.html
 ==========
 
 [Hajo]
@@ -1715,6 +1743,7 @@ const STR = {
     loading: 'Laden…',
     reasoningLabel: 'Interne gedachtengang',
     reasoningNote: 'Onbewerkt fragment uit Claude’s eigen gedachtengang — oorspronkelijk in het Engels, niet vertaald.',
+    versionLabel: 'Deze chat', versionShort: 'Verkort', versionFull: 'Volledig',
     tweaksTitle: 'Tweaks', tweaksSubtitle: 'Lezen op jouw manier',
     atmosphere: 'Sfeer', theme: 'Thema',
     themeWit: 'Wit', themeGrijs: 'Grijs', themeAvond: 'Avond',
@@ -1735,6 +1764,7 @@ const STR = {
     loading: 'Loading…',
     reasoningLabel: 'Internal reasoning',
     reasoningNote: 'Raw excerpt from Claude’s own reasoning — shown as written.',
+    versionLabel: 'This chat', versionShort: 'Abridged', versionFull: 'Full',
     tweaksTitle: 'Tweaks', tweaksSubtitle: 'Read it your way',
     atmosphere: 'Mood', theme: 'Theme',
     themeWit: 'White', themeGrijs: 'Grey', themeAvond: 'Evening',
@@ -2043,6 +2073,30 @@ function Reasoning({ turn }) {
   );
 }
 
+// --- Version switch (abridged / full) ------------------------------
+function VersionSwitch({ meta, lang }) {
+  const S = useStr();
+  if (!meta || !meta.versionThis || !meta.versionShortUrl || !meta.versionFullUrl) return null;
+  const cur = String(meta.versionThis).toLowerCase();
+  const suffix = lang === 'en' ? '?lang=en' : '';
+  const opts = [
+    { key: 'kort', label: S.versionShort, url: meta.versionShortUrl },
+    { key: 'vol',  label: S.versionFull,  url: meta.versionFullUrl }
+  ];
+  return (
+    <div className="version-switch" role="group" aria-label={S.versionLabel}>
+      <span className="vs-label">{S.versionLabel}</span>
+      <span className="vs-seg">
+        {opts.map(o => (
+          o.key === cur
+            ? <span key={o.key} className="vs-opt on" aria-current="true">{o.label}</span>
+            : <a key={o.key} className="vs-opt" href={o.url + suffix}>{o.label}</a>
+        ))}
+      </span>
+    </div>
+  );
+}
+
 // --- Reading warning (standard format element) ---------------------
 const DEFAULT_WARNING = "Eerlijk is eerlijk: dit is geen lichte kost. Wat volgt is een lang traktaat — metafysica, eindeloze nuance en detail tot ver achter de komma. Een echte diepe duik. Lees het op een dag dat je hoofd er de ruimte voor heeft, of bewaar het voor later. Snelle scrollers en ongeduldige geesten haken hier waarschijnlijk af. Helemaal goed. De rest: schenk thee in en neem de tijd.";
 
@@ -2145,7 +2199,7 @@ function useActiveTurn(turns) {
 
 // Export to window
 Object.assign(window, {
-  ProgressBar, TopBar, Sidebar, Turn, Reasoning, TitleBlock, ReadingWarning, ConversationStart,
+  ProgressBar, TopBar, Sidebar, Turn, Reasoning, VersionSwitch, TitleBlock, ReadingWarning, ConversationStart,
   SectionMarker, useActiveTurn, estimateReadingTime, STR, LangContext, useStr
 });
 
@@ -2183,7 +2237,8 @@ function parseChatText(raw) {
     TITLE: 'title', DATE: 'date', MODEL: 'model',
     USER: 'participantUser', AI: 'participantAI',
     SYNOPSIS: 'synopsis', SOURCE: 'sourceUrl', BACK: 'backUrl',
-    WARNING: 'warning', DOCUMENT: 'documentUrl', SUBTITLE: 'subtitle'
+    WARNING: 'warning', DOCUMENT: 'documentUrl', SUBTITLE: 'subtitle',
+    VERSION: 'versionThis', SHORT: 'versionShortUrl', FULL: 'versionFullUrl'
   };
   for (const line of headerBlock.split('\n')) {
     const m = line.match(/^([A-Z_]+):\s*(.+)$/);
@@ -2300,6 +2355,7 @@ function App() {
       <div className="layout">
         <article className="article" spellCheck={false}>
           <TitleBlock meta={fullMeta} readingMinutes={readingMinutes} />
+          <VersionSwitch meta={fullMeta} lang={lang} />
           <ReadingWarning text={meta.warning} />
           <div className="conversation">
             <ConversationStart date={meta.date} />
